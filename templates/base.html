@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body style="background-color:#7CB9E8;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" checked> Active
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2"> Radio
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> Radio
+                </label>
+            </div> -->
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/home">Home<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">Sign up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/books">Books</a>
+              </li>
+            </ul>
+            </div>
+
+            <!-- <h3>User: <span class="badge badge-info">{{ session['user'] if session['user'] else '___'}}</span></h3>
+            <h3>E-mail: <span class="badge badge-info">{{ session['email'] if session['email'] else '___'}}</span></h3>
+            <a href="/logout" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{ 'Logout' if session['user'] }}</a> -->
+
+            <!-- <button type="button" class="btn btn-success" href="/logout">{{ 'Logout' if session['user'] }}</button> -->
+
+            {% if session.get('user') %}
+                <a style="padding:15px;min-width:80px" href="/admin/users/{{ session['user'] }}" class="badge badge-success">{{ session['username'] }}</a>
+
+                <div style="width:10px;"></div>
+
+                <a style="padding:15px;min-width:80px;margin:10px;" href="/logout" class="badge badge-primary">Logout</a>
+            {% endif %}
+
+            <a href="/cart" style="padding:15px;">
+                <button type="button" class="btn btn-danger">
+                    Cart <span class="badge badge-light">{{ session.get('cart').items() | sum(attribute=1) }}</span>
+                </button>
+            </a>
+        </nav>
+
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+            <div class="card-body">
+                {% block messages %}
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for msg in messages %}
+                                <div style="color: red;">{{ msg }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>

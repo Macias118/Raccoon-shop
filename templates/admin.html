@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}!!ADMIN!!{% endblock %}
+
+{% block content %}
+    <h2>Users:</h2>
+        {% if not users %}
+            <h5 style="color: red;">No users</h5>
+        {% endif %}
+        {% for u in users %}
+            <form action="/admin/delete/{{ u.id }}" method="post" style="max-width: 18rem;">
+                <button type="submit" class="btn btn-danger" style="float:right;">
+                    <span>&times;</span>
+                </button>
+            </form>
+            <a href="/admin/users/{{ u.id }}" class="custom-card">
+                <div class="card text-white bg-secondary mb-3" style="width:15rem;display:inline-block">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ u.name }} ({{ u._id }})</h4>
+                        <p class="card-text">{{ u.email }}</p>
+                        <p class="card-text">{{ u.password }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    <h2>Handle users:</h2>
+        <form method="post">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" name="username" min="1">
+            </div>
+            <button type="submit" class="btn btn-info">Sign up</button>
+        </form>
+{% endblock %}

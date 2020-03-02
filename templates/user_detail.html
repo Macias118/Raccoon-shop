@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}User detail{% endblock %}
+
+{% block content %}
+
+    <form method="post" action="/admin/users/{{ user.id }}">
+        <div class="input-group input-group-lg" style="max-width:25rem;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg" style="width:120px;">ID</span>
+            </div>
+            <p name="user_id" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="">{{ user.id }}</p>
+        </div>
+
+        <div class="input-group input-group-lg" style="max-width:25rem;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg" style="width:120px;">Name</span>
+            </div>
+            <input name="name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{ user.name }}">
+        </div>
+
+        <div class="input-group input-group-lg" style="max-width:25rem;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg" style="width:120px;">E-mail</span>
+            </div>
+            <input name="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{ user.email }}">
+        </div>
+
+        <div class="input-group input-group-lg" style="max-width:25rem;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg" style="width:120px;">Password</span>
+            </div>
+            <input name="psswrd" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{ user.password }}">
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+
+    </form>
+    <div style="height:70px"></div>
+
+    <form action="/admin/delete/{{ user.id }}" method="post">
+        <button type="submit" class="btn btn-danger">Remove</button>
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+    <h2>Cart shopping</h2>
+
+    <table class="table" style="max-width:800px;">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Amount</th>
+                <th scope="col" style="color: red;">*Remove*</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product, amount in products.items() %}
+            <form action="/cart/delete/{{ product.id }}" method="post">
+                <tr>
+                    <td>
+                        <p>{{ product.title }}</p>
+                    </td>
+                    <td>
+                        <p>{{ product.author }}</p>
+                    </td>
+                    <td>
+                        {{ amount }}
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-danger" style="float:right;">
+                            <span>&times;</span>
+                        </button>
+                    </td>
+                </tr>
+            </form>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="/send_order">
+        <button type="submit">Order</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}!!ADMIN!!{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ISBN</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Page Count</th>
+                <th scope="col">Order</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <form method="post" action="/addToCart">
+                <tr>
+                    <th scope="row">{{ book.id }}</th>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.genre }}</td>
+                    <td>{{ book.page_count }}</td>
+                    <td><button name="book_id" value="{{ book.id }}" type="submit" class="btn btn-primary">Get this</button></td>
+                </tr>
+            </form>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
